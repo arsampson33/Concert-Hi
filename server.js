@@ -17,7 +17,8 @@ app.use(express.static(path.join(__dirname,'build',)))
 app.use(cors())
 
 app.use('/api/users', require('./routes/api/users'))
-app.use('/api/users/login' ,require('./routes/api/users'))
+// app.use('/api/users/login' ,require('./routes/api/users'))
+app.use('/api/posts', require('./routes/api/posts'))
 
 //API ROUTES
 app.get('/*', function(req,res){

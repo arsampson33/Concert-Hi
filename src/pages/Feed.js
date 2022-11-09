@@ -17,9 +17,9 @@ export default function Feed() {
       const res = await fetch(
         `https://app.ticketmaster.com/discovery/v2/events.json?keyword=${query}&apikey=6ySHlQzwLMmMdG7Oxr53PU74DFG98d18`
       );
-      console.log(res);
+      // console.log(res);
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
       setConcert(data);
     } catch (error) {
       console.log(error);
@@ -39,13 +39,14 @@ export default function Feed() {
           ? concert._embedded.events.map((concert) => {
               return (
                 <li key={concert.id}>
-                    <Link>
+                    <Link to={`/concert/${concert.id}`}>
                   {concert.name}
                   &nbsp; | &nbsp;
                   {concert._embedded.venues[0].name}
                   &nbsp; | &nbsp;
                   {concert._embedded.venues[0].city.name},
-                  {concert._embedded.venues[0].state.stateCode}
+                  {concert._embedded.venues[0].state?.stateCode || concert._embedded.venues[0].country?.countryCode}
+                  {/* {concert._embedded.venues[0].state.countryCode} */}
                   &nbsp; | &nbsp;
                   {concert.dates.start.localDate}
                     </Link>
@@ -54,10 +55,7 @@ export default function Feed() {
             })
           : null}
       </ul>
-      {/* <h1>{concert ? concert._embedded.events[5].name : null}</h1>
-            <h1>{concert ? concert._embedded.events[5]._embedded.venues[0].name : null}</h1>
-            <h1>{concert ? concert._embedded.events[5]._embedded.venues[0].city.name : null}, {concert ? concert._embedded.events[5]._embedded.venues[0].state.stateCode : null}</h1>
-            <h1>{concert ? concert._embedded.events[5].dates.start.localDate : null}</h1> */}
+
     </div>
   );
 }
