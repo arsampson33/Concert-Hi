@@ -1,4 +1,6 @@
 const Post = require("../../models/post");
+const User = require('../../models/user');
+const { follow } = require("./users");
 
 //create a post
 async function createPost(req, res) {
@@ -20,7 +22,21 @@ async function getPost(req, res) {
   }
 }
 //get following posts
-async function getTLPost(req, res) {}
+async function getTLPost(req, res) {
+    try{
+        const currentUser = await User.findById(req.params.userId)
+        const userPosts = await Post.find({userId: currentUser._id})
+        const followingPosts = await Promise.all(
+            currentUser.following.map((friendId) => {
+              return  Post.find({ userId: friendId})
+            })
+        )
+        res.json(userPosts.concat(...followingPosts))
+    }catch(error){
+      console.log(error)
+        res.status(500).json(error)
+    }
+}
 //update a post
 async function updatePost(req, res) {
   try {

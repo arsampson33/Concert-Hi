@@ -74,8 +74,12 @@ async function deleteUser(req, res) {
 //find user
 
 async function findUser(req, res) {
+  const userId = req.query.userId
+  const username = req.query.username
   try {
-    const foundUser = await User.findById(req.params.id);
+    const foundUser = userId ? 
+    await User.findById(userId) :
+    await User.findOne({username: username});
     //hides password and updated at
     const { password, updatedAt, ...other } = foundUser._doc;
     return res.json(other);
@@ -91,9 +95,10 @@ async function follow(req, res) {
     try {
       const userToFollow = await User.findById(req.params.id)
       const currentUser = await User.findById(req.body.userId)
-      if(!currentUser.following.includes(req.body.params)){
-        await currentUser.updateOne({$push:{following: req.params.id}})
+      // if(!currentUser.following.includes(req.body.params)){
+      if(!userToFollow.followers.includes(req.body.userId)){
         await userToFollow.updateOne({$push:{followers: req.body.userId}})
+        await currentUser.updateOne({$push:{following: req.params.id}})
         res.status(200).json('User followed')
       }else{
         return res.status(403).json('User already Followed')
@@ -112,7 +117,8 @@ async function unfollow(req, res) {
     try {
       const userToFollow = await User.findById(req.params.id)
       const currentUser = await User.findById(req.body.userId)
-      if(!currentUser.following.includes(req.body.params)){
+      // if(!currentUser.following.includes(req.body.params)){
+        if(userToFollow.followers.includes(req.body.userId)){
         await currentUser.updateOne({$pull:{following: req.params.id}})
         await userToFollow.updateOne({$pull:{followers: req.body.userId}})
         res.status(200).json('User unfollowed')

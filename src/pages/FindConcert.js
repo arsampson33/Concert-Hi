@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import ListGroup from 'react-bootstrap/ListGroup';
 
-export default function Feed() {
+export default function FindConcert() {
   const [concert, setConcert] = useState("");
   const [query, setQuery] = useState("");
-  const apikey = "B0caVQ3KB1wgCAvh69HXgnAPB2BzoSqw";
+
 
   const handleChange = (e) => {
     setQuery(e.target.value);
@@ -28,17 +29,17 @@ export default function Feed() {
 
   return (
     <div>
-      <h1>Feed</h1>
+      <h1>Find Concerts</h1>
       <label>Search</label>
       <form onSubmit={getEvent}>
         <input type="text" name="query" value={query} onChange={handleChange} />
         <input type="submit" name="submit" />
       </form>
-      <ul>
+      <ListGroup variant="flush">
         {concert
           ? concert._embedded.events.map((concert) => {
               return (
-                <li key={concert.id}>
+                <ListGroup.Item action variant="light" key={concert.id}>
                     <Link to={`/concert/${concert.id}`}>
                   {concert.name}
                   &nbsp; | &nbsp;
@@ -46,15 +47,14 @@ export default function Feed() {
                   &nbsp; | &nbsp;
                   {concert._embedded.venues[0].city.name},
                   {concert._embedded.venues[0].state?.stateCode || concert._embedded.venues[0].country?.countryCode}
-                  {/* {concert._embedded.venues[0].state.countryCode} */}
                   &nbsp; | &nbsp;
                   {concert.dates.start.localDate}
                     </Link>
-                </li>
+                </ListGroup.Item>
               );
             })
           : null}
-      </ul>
+      </ListGroup>
 
     </div>
   );
