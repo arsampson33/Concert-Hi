@@ -10,6 +10,7 @@ import Chat from './pages/Chat';
 import Concert from './pages/Concert';
 import HomePage from './pages/HomePage';
 import NavBar from './components/NavBar/NavBar';
+import Profile from './pages/Profile';
 <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -28,7 +29,8 @@ function App() {
           <Route path="/" element={ <HomePage user={user} setUser={setUser}/> }/>
           <Route path="/chat" element={ <Chat/> }/>
           <Route path="/findconcert" element={ <FindConcert/>} />
-          <Route path="/concert/:concertId" element={ <Concert/>} />
+          <Route path="/concert/:concertId" element={ <Concert user={user} />} />
+          <Route path="/profile/:username" element={ <Profile/>} />
         </Routes>
       </>
         :

@@ -1,8 +1,12 @@
 import Card from "react-bootstrap/Card";
 import { useState, useEffect } from "react";
 import ReactTimeAgo from 'react-time-ago'
+import { Link } from "react-router-dom";
+import Button from "react-bootstrap/Button"
 
-export default function Post({post}) {
+
+
+export default function Post({post, currentUser}) {
      console.log(post)
      const [like, setLike] = useState(post.likes.length)
      const [user, setUser] = useState({})
@@ -14,15 +18,31 @@ export default function Post({post}) {
          .then((res) => setUser(res))
      }, [])
  
+ function log(){
+    console.log("hello")
+ }
  
+ const deleteHandler = async (e) => {
+    e.preventDefault()
+try{
+    const res = await fetch(`http://localhost:3001/api/posts/${currentUser._id}`, {
+        method: "DELETE",
+        headers: { 'Content-Type': 'application/json' }})
+        console.log(res)
+}catch(error){
+    console.log(error)
+    
  
- 
+}
+
+}
  
    return (
      <div>
        <>
          <Card style={{ width: "40rem" }}>
            <Card.Header>
+                <Link to={`/profile/${user.username}`}>
              <div id="author" className="d-flex justify-content-between">
                <div id="profilepic" className="d-flex">
                  <img
@@ -35,6 +55,7 @@ export default function Post({post}) {
                <p className="text-muted fw-bold">{user.username}</p>
                <span class="text-muted fs-7"><ReactTimeAgo date={post.createdAt} locale="en-US"/></span>
              </div>
+               </Link>
            </Card.Header>
            <Card.Body>
              <div>
@@ -51,6 +72,7 @@ export default function Post({post}) {
  
            <Card.Footer className="likes">
              <div className="d-flex">Liked By {like}</div>
+             <Button type="submit" onClick={deleteHandler}> Delete </Button>
            </Card.Footer>
  
            <Card.Footer className="accordion">

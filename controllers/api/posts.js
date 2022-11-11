@@ -37,6 +37,22 @@ async function getTLPost(req, res) {
         res.status(500).json(error)
     }
 }
+//get following posts
+async function getConcertPost(req, res) {
+    try{
+        const concertId = await Post.find({concertId:req.params.concertId})
+        console.log(concertId)
+        // const concertPosts = await Promise.all(
+        //     concertId.map((posts) => {
+        //       return posts
+        //     })
+        // )
+        res.status(200).json(concertId)
+    }catch(error){
+      console.log(error)
+        res.status(500).json(error)
+    }
+}
 //update a post
 async function updatePost(req, res) {
   try {
@@ -54,14 +70,16 @@ async function updatePost(req, res) {
 //delete a post
 async function deletePost(req, res) {
     try {
-        const post = await Post.findById(req.params.id)
-      if (post.userId === req.body.userId) {
-        post.delete(req.params.id)
+        const user = await User.findById(req.params.id)
+        const post = await Post.findby
+      if (user._id === req.body.userId) {
+        delete(req.body.userId)
       res.status(200).json("Post deleted");
       } else {
         return res.status(403).json("Cannot delete POST");
       }
     } catch (err) {
+      console.log(err)
       res.status(500).json(err)
     }
 }
@@ -89,4 +107,5 @@ module.exports = {
   deletePost,
   likePost,
   getPost,
+  getConcertPost
 };
