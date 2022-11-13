@@ -104,6 +104,7 @@ async function follow(req, res) {
         return res.status(403).json('User already Followed')
       }
     } catch (error) {
+      console.log(error)
       return res.status(500).json(error)
     }
   } else {

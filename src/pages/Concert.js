@@ -1,8 +1,10 @@
-
+import Button from "react-bootstrap/Button";
 import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
 import Post from "../components/Feed/posts"
 import CreatePost from "../components/Feed/createPost"
+import Card from 'react-bootstrap/Card';
+import Container from "react-bootstrap/Container";
 
 export default function Concert({user}){
   const [concert, setConcert] = useState({})
@@ -39,11 +41,33 @@ export default function Concert({user}){
 
     return(
         <div>
-          <CreatePost user={user} />
-            <h1>{concert._embedded?.events[0].name || null}</h1>
-          { posts.slice(0).reverse().map((p) => (
-            <Post key={p._id} post={p}/>
-          ))} 
+              <Card className="bg-dark text-white">
+      <Card.Img src={concert._embedded?.events[0].images[6].url || null} alt="Card image" className="img-fluid" style={{height:"30rem"}}/>
+      <Card.ImgOverlay>
+        <Card.Title className='display-2'>  {concert._embedded?.events[0].name || null} </Card.Title>
+        <Card.Subtitle className='display-5'> 
+        {concert._embedded?.events[0].dates.start.localDate} <br/>
+        {concert._embedded?.events[0]._embedded.venues[0].name} 
+        </Card.Subtitle>
+        <Card.Subtitle className='display-6'>
+        {concert._embedded?.events[0]._embedded?.venues[0].city.name},
+          {concert._embedded?.events[0]._embedded?.venues[0].state?.stateCode || concert._embedded?.events[0]._embedded?.venues[0].country?.countryCode}
+        </Card.Subtitle>
+        <Button variant="outline-primary">Follow</Button>{' '}
+      </Card.ImgOverlay>
+    </Card>
+        <br/>
+    <Container className="d-flex justify-content-center">
+      {<CreatePost user={user}/>}
+      <br></br>
+      </Container>
+      <Container className="d-flex flex-column align-items-center justify-content-center">
+
+      {posts.slice(0).reverse().map((p) => (
+          <Post key={p._id} post={p} currentUser={user}/>
+          
+          ))}
+          </Container>
         </div>
     )
 }

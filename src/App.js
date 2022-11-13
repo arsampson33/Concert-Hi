@@ -30,7 +30,7 @@ function App() {
           <Route path="/chat" element={ <Chat/> }/>
           <Route path="/findconcert" element={ <FindConcert/>} />
           <Route path="/concert/:concertId" element={ <Concert user={user} />} />
-          <Route path="/profile/:username" element={ <Profile/>} />
+          <Route path="/profile/:username" element={ <Profile  user={user}/>} />
         </Routes>
       </>
         :

@@ -6,11 +6,12 @@ import Button from "react-bootstrap/Button"
 
 
 
-export default function Post({post, currentUser}) {
+export default function Post({post}) {
      console.log(post)
      const [like, setLike] = useState(post.likes.length)
      const [user, setUser] = useState({})
    
+ 
  
      useEffect(()=>{
          fetch(`http://localhost:3001/api/users?userId=${post.userId}`)
@@ -25,13 +26,13 @@ export default function Post({post, currentUser}) {
  const deleteHandler = async (e) => {
     e.preventDefault()
 try{
-    const res = await fetch(`http://localhost:3001/api/posts/${currentUser._id}`, {
+    const res = await fetch(`http://localhost:3001/api/posts/${post._id}`, {
         method: "DELETE",
         headers: { 'Content-Type': 'application/json' }})
         console.log(res)
 }catch(error){
     console.log(error)
-    
+
  
 }
 

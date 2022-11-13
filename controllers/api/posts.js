@@ -70,16 +70,14 @@ async function updatePost(req, res) {
 //delete a post
 async function deletePost(req, res) {
     try {
-        const user = await User.findById(req.params.id)
-        const post = await Post.findby
-      if (user._id === req.body.userId) {
-        delete(req.body.userId)
+        const post = await Post.findById(req.params.id)
+      if (post.userId === req.body.userId) {
+       await post.deleteOne()
       res.status(200).json("Post deleted");
       } else {
         return res.status(403).json("Cannot delete POST");
       }
     } catch (err) {
-      console.log(err)
       res.status(500).json(err)
     }
 }
