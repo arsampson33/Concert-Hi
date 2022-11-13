@@ -10,6 +10,7 @@ router.delete('/:id', postsCtrl.deletePost)
 router.get('/:id', postsCtrl.getPost)
 router.get('/:timeline/:userId',postsCtrl.getTLPost)
 router.get('/concert/:concertId/all',postsCtrl.getConcertPost)
+router.get('/user/:userId/all',postsCtrl.getUserPost)
 router.put('/:id/like', postsCtrl.likePost)
 
 

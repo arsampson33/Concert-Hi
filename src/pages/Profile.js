@@ -11,18 +11,48 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 export default function Profile({ user }) {
-  const params = useParams()
-  const [profile, setProfile] = useState([])
-
+  const params = useParams();
+  const [profile, setProfile] = useState([]);
   const [posts, setPosts] = useState([]);
+  const [following, setFollowing] = useState(false)
 
-   function follow(){
-    fetch(`http://localhost:3001/api/users/${profile?._id}/follow`,{
-      method: "PUT",
-      headers: { 'Content-Type': 'application/json' }})
-       .then((res) => res.json())
-       .then((res) => console.log(res))
-  }
+  const clickHandle = async (e) => {
+    e.preventDefault();
+    const newFollow = {
+      userId: user._id,
+    };
+    if (!profile.followers.includes(user._id)) {
+      setFollowing(true)
+      try {
+        const res = await fetch(
+          `http://localhost:3001/api/users/${profile._id}/follow`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newFollow),
+          }
+        );
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        setFollowing(false)
+        const res = await fetch(
+          `http://localhost:3001/api/users/${profile._id}/unfollow`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newFollow),
+          }
+        );
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   useEffect(() => {
     fetch(`http://localhost:3001/api/users/?username=${params.username}`)
@@ -30,11 +60,11 @@ export default function Profile({ user }) {
       .then((res) => setProfile(res));
   }, []);
   useEffect(() => {
-    fetch(`http://localhost:3001/api/posts/timeline/${user._id}`)
+    fetch(`http://localhost:3001/api/posts/user/${profile?._id}/all`)
       .then((res) => res.json())
       .then((res) => setPosts(res));
-  }, []);
-
+  }, [profile]);
+ console.log(profile._id)
   return (
     <div>
       <Container className="d-flex justify-content-center">
@@ -62,7 +92,12 @@ export default function Profile({ user }) {
                   {profile.followers?.length}
                 </Card.Subtitle>
                 <Card.Text>{profile.bio}</Card.Text>
-                <Button onClick={follow} variant="outline-primary">Follow</Button>{' '}
+                {following==false ?<Button onClick={clickHandle} variant="outline-primary">
+                  Follow
+                </Button> :
+                <Button onClick={clickHandle} variant="outline-primary">
+                  Unfollow
+                </Button>}
               </Card.Body>
             </Col>
           </Row>
@@ -76,7 +111,7 @@ export default function Profile({ user }) {
         fill
       >
         <Tab eventKey="posts" title="Posts">
-            <h1 className=" my-4 display-6">Posts</h1>
+          <h1 className=" my-4 display-6">Posts</h1>
           <Container className="d-flex flex-column align-items-center">
             {posts
               .slice(0)

@@ -42,11 +42,17 @@ async function getConcertPost(req, res) {
     try{
         const concertId = await Post.find({concertId:req.params.concertId})
         console.log(concertId)
-        // const concertPosts = await Promise.all(
-        //     concertId.map((posts) => {
-        //       return posts
-        //     })
-        // )
+        res.status(200).json(concertId)
+    }catch(error){
+      console.log(error)
+        res.status(500).json(error)
+    }
+}
+//get user posts
+async function getUserPost(req, res) {
+    try{
+        const concertId = await Post.find({userId:req.params.userId})
+        console.log(concertId)
         res.status(200).json(concertId)
     }catch(error){
       console.log(error)
@@ -105,5 +111,6 @@ module.exports = {
   deletePost,
   likePost,
   getPost,
-  getConcertPost
+  getConcertPost,
+  getUserPost
 };

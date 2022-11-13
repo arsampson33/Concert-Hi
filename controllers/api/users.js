@@ -95,10 +95,11 @@ async function follow(req, res) {
     try {
       const userToFollow = await User.findById(req.params.id)
       const currentUser = await User.findById(req.body.userId)
+      console.log(userToFollow)
       // if(!currentUser.following.includes(req.body.params)){
       if(!userToFollow.followers.includes(req.body.userId)){
-        await userToFollow.updateOne({$push:{followers: req.body.userId}})
-        await currentUser.updateOne({$push:{following: req.params.id}})
+        await userToFollow.updateOne({ $push: {followers: req.body.userId}})
+        await currentUser.updateOne({ $push: {following: req.params.id}})
         res.status(200).json('User followed')
       }else{
         return res.status(403).json('User already Followed')
@@ -127,6 +128,7 @@ async function unfollow(req, res) {
         return res.status(403).json(`Can't unfollow somebody you don't follow`)
       }
     } catch (error) {
+      console.log(error)
       return res.status(500).json(error)
     }
   } else {
