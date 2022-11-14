@@ -6,36 +6,39 @@ import Button from "react-bootstrap/Button"
 
 
 
-export default function Post({post}) {
-     console.log(post)
+export default function Post({post, currentUser}) {
      const [like, setLike] = useState(post.likes.length)
-     const [user, setUser] = useState({})
+     const [isLiked, setIsLiked] = useState(false)
+     const [postUser, setPostUser] = useState({})
    
- 
+     useEffect(() => {
+      setIsLiked(post.likes.includes(currentUser._id));
+    }, [currentUser._id, post.likes]);
+  
  
      useEffect(()=>{
          fetch(`http://localhost:3001/api/users?userId=${post.userId}`)
          .then((res) => res.json())
-         .then((res) => setUser(res))
+         .then((res) => setPostUser(res))
      }, [])
  
- function log(){
-    console.log("hello")
- }
  
- const deleteHandler = async (e) => {
+ const likeHandler = async (e) => {
     e.preventDefault()
+    const newLike = {
+      userId :currentUser._id,
+    };
 try{
-    const res = await fetch(`http://localhost:3001/api/posts/${post._id}`, {
-        method: "DELETE",
-        headers: { 'Content-Type': 'application/json' }})
+    const res = await fetch(`http://localhost:3001/api/posts/${post._id}/like`, {
+        method: "PUT",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newLike)})
         console.log(res)
 }catch(error){
     console.log(error)
-
- 
 }
-
+setLike(isLiked ? like - 1 : like + 1);
+setIsLiked(!isLiked);
 }
  
    return (
@@ -43,17 +46,17 @@ try{
        <>
          <Card style={{ width: "40rem" }}>
            <Card.Header>
-                <Link to={`/profile/${user.username}`}>
+                <Link to={`/profile/${postUser.username}`}>
              <div id="author" className="d-flex justify-content-between">
                <div id="profilepic" className="d-flex">
                  <img
-                   src= {user.profilePicture || "https://placeimg.com/640/480/people"}
+                   src= {postUser.profilePicture || "https://placeimg.com/640/480/people"}
                    alt="PP"
                    className="rounded-circle me-md-2"
                    style={{ width: "38px", height: " 38px", objectFit: "cover" }}
                  />
                </div>
-               <p className="text-muted fw-bold">{user.username}</p>
+               <p className="text-muted fw-bold">{postUser.username}</p>
                <span class="text-muted fs-7"><ReactTimeAgo date={post.createdAt} locale="en-US"/></span>
              </div>
                </Link>
@@ -73,7 +76,7 @@ try{
  
            <Card.Footer className="likes">
              <div className="d-flex">Liked By {like}</div>
-             <Button type="submit" onClick={deleteHandler}> Delete </Button>
+             <Button type="submit" onClick={likeHandler}> Like </Button>
            </Card.Footer>
  
            <Card.Footer className="accordion">

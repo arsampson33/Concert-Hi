@@ -9,6 +9,7 @@ const userSchema = new Schema({
     password: {type:String, required:true, minLength: 3, trim:true },
     following: {type:Array, default:[]},
     followers: {type:Array, default:[]},
+    concertFollowing: {type:Array, default:[]},
     profilePicture: {type:String, default:''},
     bio:{ type:String, max:200},
     city:{ type:String, max: 50},

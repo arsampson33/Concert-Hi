@@ -16,13 +16,15 @@ export default function Profile({ user }) {
   const [posts, setPosts] = useState([]);
   const [following, setFollowing] = useState(false)
 
+
+
   const clickHandle = async (e) => {
     e.preventDefault();
     const newFollow = {
       userId: user._id,
     };
     if (!profile.followers.includes(user._id)) {
-      setFollowing(true)
+      // setFollowing(true)
       try {
         const res = await fetch(
           `http://localhost:3001/api/users/${profile._id}/follow`,
@@ -38,7 +40,7 @@ export default function Profile({ user }) {
       }
     } else {
       try {
-        setFollowing(false)
+        // setFollowing(false)
         const res = await fetch(
           `http://localhost:3001/api/users/${profile._id}/unfollow`,
           {
@@ -52,19 +54,22 @@ export default function Profile({ user }) {
         console.log(error);
       }
     }
+    setFollowing(following ? profile.followers.length + 1 : profile.followers.length - 1)
   };
 
   useEffect(() => {
     fetch(`http://localhost:3001/api/users/?username=${params.username}`)
       .then((res) => res.json())
       .then((res) => setProfile(res));
-  }, []);
+  }, [following]);
   useEffect(() => {
     fetch(`http://localhost:3001/api/posts/user/${profile?._id}/all`)
       .then((res) => res.json())
       .then((res) => setPosts(res));
-  }, [profile]);
- console.log(profile._id)
+  }, []);
+  useEffect(()=>{
+    profile.followers?.includes(user._id) ?  setFollowing(true)
+    : setFollowing(false)}, [profile.followers])
   return (
     <div>
       <Container className="d-flex justify-content-center">
@@ -92,7 +97,7 @@ export default function Profile({ user }) {
                   {profile.followers?.length}
                 </Card.Subtitle>
                 <Card.Text>{profile.bio}</Card.Text>
-                {following==false ?<Button onClick={clickHandle} variant="outline-primary">
+                {following == false ? <Button onClick={clickHandle} variant="outline-primary">
                   Follow
                 </Button> :
                 <Button onClick={clickHandle} variant="outline-primary">

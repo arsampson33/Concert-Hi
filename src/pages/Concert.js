@@ -10,6 +10,8 @@ export default function Concert({user}){
   const [concert, setConcert] = useState({})
   const [posts,setPosts] = useState([])
   const params = useParams()
+  const [activeUser, setActiveUser] = useState(user)
+  const [following, setFollowing] = useState(false)
   const url = `https://app.ticketmaster.com/discovery/v2/events.json?keyword=${params}&apikey=6ySHlQzwLMmMdG7Oxr53PU74DFG98d18`  
 
     useEffect(()=>{
@@ -21,6 +23,32 @@ export default function Concert({user}){
     useEffect(()=>{
         getConcert()
     },[])
+
+
+    const clickHandle = async (e) => {
+      e.preventDefault();
+      console.log('hello')
+      const newFollow = {
+        userId: user._id,
+      };
+      
+        try {
+          const res = await fetch(
+            `http://localhost:3001/api/users/concert/${params.concertId}/follow`,
+            {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(newFollow),
+            }
+          );
+          console.log(res);
+        } catch (error) {
+          console.log(error);
+        }
+      
+    }
+
+
 
     const getConcert = async (e) => {
     
@@ -53,7 +81,7 @@ export default function Concert({user}){
         {concert._embedded?.events[0]._embedded?.venues[0].city.name},
           {concert._embedded?.events[0]._embedded?.venues[0].state?.stateCode || concert._embedded?.events[0]._embedded?.venues[0].country?.countryCode}
         </Card.Subtitle>
-        <Button variant="outline-primary">Follow</Button>{' '}
+        <Button onClick={clickHandle} variant="outline-primary">Follow</Button>{' '}
       </Card.ImgOverlay>
     </Card>
         <br/>

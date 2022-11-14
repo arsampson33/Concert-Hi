@@ -8,6 +8,7 @@ router.put('/:id' ,usersCtrl.update)
 router.delete('/:id', usersCtrl.deleteUser)
 router.get('/', usersCtrl.findUser)
 router.put('/:id/follow', usersCtrl.follow)
+router.put('/concert/:id/follow', usersCtrl.concertFollow)
 router.put('/:id/unfollow', usersCtrl.unfollow)
 
 module.exports = router

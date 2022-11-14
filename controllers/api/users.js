@@ -136,6 +136,30 @@ async function unfollow(req, res) {
   }
 }
 
+
+//concert follow
+
+async function concertFollow(req, res) {
+  
+    try {
+      const currentUser = await User.findById(req.body.userId)
+
+      if(!currentUser.following.includes(req.params)){
+        await currentUser.updateOne({ $push: {concertFollowing: req.params}})
+        res.status(200).json('Concert followed')
+      }else{
+        return res.status(403).json('User already Followed')
+      }
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json(error)
+    }
+}
+
+
+
+
+
 module.exports = {
   create,
   login,
@@ -143,5 +167,6 @@ module.exports = {
   deleteUser,
   findUser,
   follow,
-  unfollow
+  unfollow,
+  concertFollow
 };

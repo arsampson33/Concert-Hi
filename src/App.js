@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import { Routes, Route } from 'react-router-dom';
 import { getUser } from './utilities/users-service';
 import AuthPage from './pages/AuthPage';
@@ -11,6 +11,7 @@ import Concert from './pages/Concert';
 import HomePage from './pages/HomePage';
 import NavBar from './components/NavBar/NavBar';
 import Profile from './pages/Profile';
+import UpdatePage from './pages/UpdatePage';
 <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -20,6 +21,7 @@ import Profile from './pages/Profile';
 
 function App() {
   const [user, setUser] = useState(getUser())
+  
   return (
     <main className='App'>
       { user ?
@@ -31,6 +33,7 @@ function App() {
           <Route path="/findconcert" element={ <FindConcert/>} />
           <Route path="/concert/:concertId" element={ <Concert user={user} />} />
           <Route path="/profile/:username" element={ <Profile  user={user}/>} />
+          <Route path="/update/:username" element={ <UpdatePage  user={user}/>} />
         </Routes>
       </>
         :
