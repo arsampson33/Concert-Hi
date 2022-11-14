@@ -28,18 +28,18 @@ export default function FindConcert() {
   };
 
   return (
-    <div>
+    <div id="background">
       <h1>Find Concerts</h1>
       <label>Search</label>
-      <form onSubmit={getEvent}>
+      <form  id="background" onSubmit={getEvent}>
         <input type="text" name="query" value={query} onChange={handleChange} />
         <input type="submit" name="submit" />
       </form>
-      <ListGroup variant="flush">
+      <ListGroup id="background" variant="flush">
         {concert
           ? concert._embedded.events.map((concert) => {
               return (
-                <ListGroup.Item action variant="light" key={concert.id}>
+                <ListGroup.Item id="background" action variant="light" key={concert.id}>
                     <Link to={`/concert/${concert.id}`}>
                   {concert.name}
                   &nbsp; | &nbsp;

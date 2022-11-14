@@ -45,7 +45,7 @@ setIsLiked(!isLiked);
      <div>
        <>
          <Card style={{ width: "40rem" }}>
-           <Card.Header>
+           <Card.Header style={{backgroundColor:"#dadffb"}}>
                 <Link to={`/profile/${postUser.username}`}>
              <div id="author" className="d-flex justify-content-between">
                <div id="profilepic" className="d-flex">
@@ -57,11 +57,12 @@ setIsLiked(!isLiked);
                  />
                </div>
                <p className="text-muted fw-bold">{postUser.username}</p>
+               <p className="text-muted fw-bold">Concert: {post.concertId ? post.concertId : null }</p>
                <span class="text-muted fs-7"><ReactTimeAgo date={post.createdAt} locale="en-US"/></span>
              </div>
                </Link>
            </Card.Header>
-           <Card.Body>
+           <Card.Body >
              <div>
                <p>
                {post?.body}
@@ -74,12 +75,12 @@ setIsLiked(!isLiked);
              </div>
            </Card.Body>
  
-           <Card.Footer className="likes">
+           <Card.Footer style={{backgroundColor:"#dadffb"}} className="likes">
              <div className="d-flex">Liked By {like}</div>
              <Button type="submit" onClick={likeHandler}> Like </Button>
            </Card.Footer>
  
-           <Card.Footer className="accordion">
+           {/* <Card.Footer className="accordion">
              <div id="author" className="d-flex justify-content-between">
                <div id="profilepic" className="d-flex">
                  <img
@@ -89,12 +90,12 @@ setIsLiked(!isLiked);
                    style={{ width: "38px", height: " 38px", objectFit: "cover" }}
                  />
                </div>
-               <p className="text-muted fw-bold">Austin</p>
-               <span class="text-muted fs-7">November 17, 2023</span>
+               <p className="text-muted fw-bold">Cool Commenter</p>
+               <span class="text-muted fs-7">xx/xx/xx</span>
              </div>
-             <div>This is my comment</div>
+             <div>Comments coming soon!</div>
              <div class="pb-2 mb-4 text-danger border-bottom border-dark"></div>
-           </Card.Footer>
+           </Card.Footer> */}
          </Card>
            <br/>
      

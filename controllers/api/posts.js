@@ -37,7 +37,22 @@ async function getTLPost(req, res) {
         res.status(500).json(error)
     }
 }
-//get following posts
+async function getConcertFollowPost(req, res) {
+    try{
+        const currentUser = await User.findById(req.params.userId)
+        const userPosts = await Post.find({userId: currentUser._id})
+        const followingPosts = await Promise.all(
+            currentUser.concertFollowing.map((concertid) => {
+              return  Post.find({ concertId: concertid.id})
+            })
+        )
+        res.json(...followingPosts)
+    }catch(error){
+      console.log(error)
+        res.status(500).json(error)
+    }
+}
+//get all concert posts posts
 async function getConcertPost(req, res) {
     try{
         const concertId = await Post.find({concertId:req.params.concertId})
@@ -112,5 +127,6 @@ module.exports = {
   likePost,
   getPost,
   getConcertPost,
-  getUserPost
+  getUserPost,
+  getConcertFollowPost
 };

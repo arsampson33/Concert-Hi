@@ -63,10 +63,10 @@ export default function Profile({ user }) {
       .then((res) => setProfile(res));
   }, [following]);
   useEffect(() => {
-    fetch(`http://localhost:3001/api/posts/user/${profile?._id}/all`)
+    fetch(`http://localhost:3001/api/posts/user/${profile._id}/all`)
       .then((res) => res.json())
       .then((res) => setPosts(res));
-  }, []);
+  }, [profile]);
   useEffect(()=>{
     profile.followers?.includes(user._id) ?  setFollowing(true)
     : setFollowing(false)}, [profile.followers])

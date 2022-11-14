@@ -5,6 +5,7 @@ import Container  from "react-bootstrap/Container";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import "../../index.css"
 
 
 
@@ -16,31 +17,34 @@ export default function NavBar(props) {
     }
    
     return(
-        <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand"><Link to ='/'> Concert Hi</Link></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page"><Link to ={`/profile/${user.username}`}> Profile</Link></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link"><Link to ='/findconcert'> Find Concerts</Link></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active"><Link to='' onClick={handleLogOut}>Log Out</Link></a>
-              </li>
-            </ul>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-          </div>
-        </div>
-      </nav>
+      <Navbar id='navbar' collapseOnSelect expand="lg"  variant="dark">
+      <Container>
+        <Navbar.Brand style={{fontFamily:"Chubiy", fontSize:"2.5em"}} id="logo" className="ml-1" href="/">Concert-Hi</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href={`/profile/${user.username}`}>Profile</Nav.Link>
+            <Nav.Link href='/findconcert'>Find Concerts</Nav.Link>
+            <NavDropdown title="Account" id="collasible-nav-dropdown">
+              <NavDropdown.Item href={`/update/${user.username}`}>
+                Update Profile
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.3"></NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="/" onClick={handleLogOut}>
+                LogOut
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+          <Nav>
+            <Nav.Link href="#deets">More deets</Nav.Link>
+            <Nav.Link eventKey={2} href="#memes">
+              Dank memes
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
       
 
     )

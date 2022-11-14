@@ -29,7 +29,7 @@ export default function Concert({user}){
       e.preventDefault();
       console.log('hello')
       const newFollow = {
-        userId: user._id,
+        userId: activeUser._id,
       };
       
         try {
@@ -41,6 +41,7 @@ export default function Concert({user}){
               body: JSON.stringify(newFollow),
             }
           );
+          activeUser.concertFollowing.push(params)
           console.log(res);
         } catch (error) {
           console.log(error);

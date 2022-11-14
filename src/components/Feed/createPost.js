@@ -31,7 +31,7 @@ export default function CreatePost({ user }) {
   return (
     <div>
       <h1></h1>
-      <Card style={{ width: "50rem" }}>
+      <Card style={{backgroundColor:"#dadffb", width: "50rem" }}>
         <Card.Body>
           <Form onSubmit={submitHandler}>
             <Form.Group
