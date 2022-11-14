@@ -6,7 +6,7 @@ const cors = require('cors')
 const multer = require('multer')
 
 const app = express()
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 const storage = multer.diskStorage({
     destination:(req,file, cb) => {
         cb(null, "public/images")
