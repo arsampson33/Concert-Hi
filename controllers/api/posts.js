@@ -12,6 +12,16 @@ async function createPost(req, res) {
     res.status(500).json(error);
   }
 }
+//create a comment
+async function comment(req,res){
+  try{
+    const post = await Post.findById(req.params.id)
+    await post.updateOne({$set: req.body})
+    console.log(res)
+  }catch(error){
+    console.log(error)
+  }
+}
 //get a post
 async function getPost(req, res) {
   try {
@@ -128,5 +138,6 @@ module.exports = {
   getPost,
   getConcertPost,
   getUserPost,
-  getConcertFollowPost
+  getConcertFollowPost,
+  comment
 };

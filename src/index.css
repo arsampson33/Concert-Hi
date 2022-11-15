@@ -2,6 +2,13 @@
   font-family: 'Chubiy';
   src: local('Chubiy'), url('/public/fonts/Chubiy\ -\ PERSONAL\ USE\ ONLY.ttf') format('truetype');
   }
+  html,body{
+    background-color:#FFF18D
+  }
+  
+  #root{
+    background-color:#FFF18D
+  }
 
 #logo{
     color: #F2DB66;
@@ -16,7 +23,7 @@
   background-color: #2E5939 ;
 }
 
-.tab{
+.tab,#profile{
   background-color: #dadffb;
 }
 

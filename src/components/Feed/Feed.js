@@ -10,9 +10,7 @@ export default function Feed({ user, setUser }) {
     const [posts,setPosts] = useState([])
     const [concertFeed, setConcertFeed] = useState([])
     const [postCheck, setPostCheck] = useState(false)
-      if(posts.length++){
-        console.log('Yay new ppsot')
-      }
+
     useEffect(()=>{
         fetch(`http://localhost:3001/api/posts/timeline/${user._id}`)
         .then((res) => res.json())
@@ -27,7 +25,7 @@ export default function Feed({ user, setUser }) {
 
   return (
     <div id="background">
-      <h1 className="display-6">Feed</h1>
+      <h1 className="display-6">Hi, {user.username}! Let's talk concerts!</h1>
       <Container id='idk' className="d-flex justify-content-center">
       {<CreatePost user={user}/>}
       </Container>
@@ -42,8 +40,8 @@ export default function Feed({ user, setUser }) {
           <h1 className=" my-4 display-6">Posts</h1>
           <Container className="d-flex flex-column align-items-center">
             {posts
-              .slice(0)
-              .reverse()
+              // .slice(0)
+              // .reverse()
               .map((p) => (
                 <Post key={p._id} post={p} currentUser={user} />
               ))}

@@ -72,8 +72,10 @@ export default function Profile({ user }) {
     : setFollowing(false)}, [profile.followers])
   return (
     <div>
+      <br/>
       <Container className="d-flex justify-content-center">
         <Card
+          id="profile"
           className="d-flex justify-content-center"
           style={{ width: "40rem" }}
         >
@@ -108,12 +110,13 @@ export default function Profile({ user }) {
           </Row>
         </Card>
       </Container>
-
+<br/>
       <Tabs
         defaultActiveKey="posts"
-        id="uncontrolled-tab-example"
-        className="mb-3"
+        id="tabuncontrolled-tab-example"
+        className="tab mb-3"
         fill
+        
       >
         <Tab eventKey="posts" title="Posts">
           <h1 className=" my-4 display-6">Posts</h1>

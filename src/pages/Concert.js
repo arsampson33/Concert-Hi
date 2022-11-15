@@ -48,18 +48,18 @@ export default function Concert({user}){
         }
       
     }
-
+    useEffect(()=>{
+      activeUser.concertFollowing?.includes(concert.concertId) ?  setFollowing(true)
+      : setFollowing(false)}, [activeUser.concertFollowing])
 
 
     const getConcert = async (e) => {
     
         try {
-          console.log(params)
           const res = await fetch(
             `https://app.ticketmaster.com/discovery/v2/events.json?id=${params.concertId}&apikey=6ySHlQzwLMmMdG7Oxr53PU74DFG98d18`
           );
-       
-          const data = await res.json();
+         const data = await res.json();
        
           setConcert(data);
         } catch (error) {
@@ -82,7 +82,12 @@ export default function Concert({user}){
         {concert._embedded?.events[0]._embedded?.venues[0].city.name},
           {concert._embedded?.events[0]._embedded?.venues[0].state?.stateCode || concert._embedded?.events[0]._embedded?.venues[0].country?.countryCode}
         </Card.Subtitle>
-        <Button onClick={clickHandle} variant="outline-primary">Follow</Button>{' '}
+        {following == false ? <Button onClick={clickHandle} variant="outline-primary">
+                  Follow
+                </Button> :
+                <Button onClick={clickHandle} variant="outline-primary">
+                  Unfollow
+                </Button>}
       </Card.ImgOverlay>
     </Card>
         <br/>
@@ -91,7 +96,7 @@ export default function Concert({user}){
       <br></br>
       </Container>
       <Container className="d-flex flex-column align-items-center justify-content-center">
-
+      <br/>
       {posts.slice(0).reverse().map((p) => (
           <Post key={p._id} post={p} currentUser={user}/>
           

@@ -1,13 +1,30 @@
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 export default function CreatePost({ user }) {
   const body = useRef();
   const params = useParams()
-
+  const [topic, setTopic] = useState('')
+  
+  useEffect(()=>{
+    setTopic(topics[randomTopic])
+  },[])
+  
+  const topics = [
+    'What concerts do you have planned?',
+    'What was the best concert you ever been too?',
+    "You're in charge of Cochella, who are your three headliners?",
+    'Which is better? General Admission or Concert Seating? ',
+    'Dream festival line up (dead or alive)',
+    'What was the last concert you attended?',
+    'Why do you love concerts?',
+    'Looking for or selling any tickets?',
+  ]
+ const randomTopic = Math.floor(Math.random() * topics.length)
+ 
   const submitHandler = async (e) => {
         e.preventDefault()
     const newPost = {
@@ -26,11 +43,10 @@ export default function CreatePost({ user }) {
         console.log(error)
      
     }
-
+    
     }
   return (
     <div>
-      <h1>Hello</h1>
       <Card style={{backgroundColor:"#dadffb", width: "50rem" }}>
         <Card.Body>
           <Form onSubmit={submitHandler}>
@@ -38,13 +54,13 @@ export default function CreatePost({ user }) {
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
             >
-              <Form.Label>Create A Post</Form.Label>
+              <Form.Label>Whats on your mind or you can just answer one of the prompts!</Form.Label>
               <Form.Control
                 type="text"
                 ref={body}
                 as="textarea"
                 rows={3}
-                placeholder="What's on your mind?"
+                placeholder={topic}
               />
             </Form.Group>
           <Button type="submit"  variant="primary">

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import ListGroup from 'react-bootstrap/ListGroup';
+import Container from 'react-bootstrap/Container';
 
 export default function FindConcert() {
   const [concert, setConcert] = useState("");
@@ -28,7 +29,8 @@ export default function FindConcert() {
   };
 
   return (
-    <div id="background">
+    <Container fluid id="background">
+   
       <h1>Find Concerts</h1>
       <label>Search</label>
       <form  id="background" onSubmit={getEvent}>
@@ -56,6 +58,7 @@ export default function FindConcert() {
           : null}
       </ListGroup>
 
-    </div>
+   
+    </Container>
   );
 }
