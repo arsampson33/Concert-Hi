@@ -5,11 +5,11 @@ import { useState } from "react"
 
 export default function AuthPage ({setUser}){
 
-const [showSignUp, setShowSignUp] = useState(true)
+const [showSignUp, setShowSignUp] = useState(false)
 
     return(
         <div>
-            <h1>AuthPage</h1>
+            <h1 style={{fontFamily:"Chubiy", marginTop:"1em"}}>Concert Hi</h1>
           { showSignUp ? <SignUpForm setUser={setUser}/> :
             <LogInForm setUser={setUser} />}
 

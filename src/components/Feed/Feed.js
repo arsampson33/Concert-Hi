@@ -36,19 +36,19 @@ export default function Feed({ user, setUser }) {
         className=" tab mb-3"
         fill
       >
-        <Tab eventKey="posts" title="Posts">
-          <h1 className=" my-4 display-6">Posts</h1>
+        <Tab eventKey="posts" title="Friends">
+          <h1 className=" my-4 display-6">Friend Feed</h1>
           <Container className="d-flex flex-column align-items-center">
             {posts
-              // .slice(0)
-              // .reverse()
+              .slice(0)
+              .reverse()
               .map((p) => (
                 <Post key={p._id} post={p} currentUser={user} />
               ))}
           </Container>
         </Tab>
         <Tab eventKey="upcoming" title="Concerts You Follow">
-        <h1 className=" my-4 display-6">Posts</h1>
+        <h1 className=" my-4 display-6">Concert Feed</h1>
           <Container className="d-flex flex-column align-items-center">
             {concertFeed
               .slice(0)

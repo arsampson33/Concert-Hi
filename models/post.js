@@ -7,11 +7,6 @@ const postSchema = new Schema({
     img: {type:String},
     likes: {type:Array, default:[]},
     concertId: {type:String},
-    comment: [{
-        commentId: {type:String, required:true},
-        commentBody: {type:String, required:true, max:500}
-        
-    }]
 },
 {
     timestamps:true

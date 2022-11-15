@@ -129,7 +129,7 @@ export default function Profile({ user }) {
               ))}
           </Container>
         </Tab>
-        <Tab eventKey="upcoming" title="Concerts Attended"></Tab>
+        <Tab eventKey="upcoming" title="My Music"></Tab>
       </Tabs>
     </div>
   );

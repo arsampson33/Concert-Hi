@@ -27,8 +27,16 @@
   background-color: #dadffb;
 }
 
+.form-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+input{
+  display: flex;
+  flex-direction: column;
 
-
+}
 
 
 
