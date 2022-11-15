@@ -3,19 +3,12 @@ const morgan = require('morgan')
 const favicon = require('serve-favicon')
 const path = require('path')
 const cors = require('cors')
-const multer = require('multer')
+
 
 const app = express()
 const PORT = process.env.PORT || 3001
-const storage = multer.diskStorage({
-    destination:(req,file, cb) => {
-        cb(null, "public/images")
-    },
-    filename:(req,file, cb) =>{
-        cb(null, req.body.name)
-    }
-})
-const upload = multer(storage)
+
+
 
 require('dotenv').config()
 require('./config/database')
@@ -35,13 +28,6 @@ app.get('/*', function(req,res){
     res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })
 
-app.post("/api/upload", upload.single('file'), (res,req) =>{
-    try{
-        return res.status(200).json('File Uploaded!')
-    }catch(err){
-        console.log(err)
-    }
-})
 
 app.listen(PORT, function(){
     console.log(`Express app is running on ${PORT}`)
