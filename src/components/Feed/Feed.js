@@ -18,7 +18,7 @@ export default function Feed({ user, setUser }) {
     },[])
 
     useEffect(()=>{
-        fetch(`api/posts/concert/following/${user._id}/all`)
+        fetch(`/api/posts/concert/following/${user._id}/all`)
         .then((res) => res.json())
         .then((res) => setConcertFeed(res))
     },[])

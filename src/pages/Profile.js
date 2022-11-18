@@ -27,7 +27,7 @@ export default function Profile({ user }) {
       // setFollowing(true)
       try {
         const res = await fetch(
-          `api/users/${profile._id}/follow`,
+          `/api/users/${profile._id}/follow`,
           {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -42,7 +42,7 @@ export default function Profile({ user }) {
       try {
         // setFollowing(false)
         const res = await fetch(
-          `http://localhost:3001/api/users/${profile._id}/unfollow`,
+          `/api/users/${profile._id}/unfollow`,
           {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -58,12 +58,12 @@ export default function Profile({ user }) {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3001/api/users/?username=${params.username}`)
+    fetch(`/api/users/?username=${params.username}`)
       .then((res) => res.json())
       .then((res) => setProfile(res));
   }, [following]);
   useEffect(() => {
-    fetch(`http://localhost:3001/api/posts/user/${profile._id}/all`)
+    fetch(`/api/posts/user/${profile._id}/all`)
       .then((res) => res.json())
       .then((res) => setPosts(res));
   }, [profile]);

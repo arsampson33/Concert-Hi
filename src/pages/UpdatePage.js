@@ -3,25 +3,26 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useParams } from "react-router-dom";
 
-
 export default function UpdatePage({ user }) {
   const bio = useRef();
   const city = useRef();
   const state = useRef();
-  const newFile = useRef()
-  const params = useParams()
+  const newFile = useRef();
+  const params = useParams();
   const [profile, setProfile] = useState([]);
-  const [file,setFile] = useState(null)
+  const [file, setFile] = useState(null);
   useEffect(() => {
-   const res = fetch(`http://localhost:3001/api/users/?username=${params.username}`)
+    const res = fetch(
+      `/api/users/?username=${params.username}`
+    )
       .then((res) => res.json())
       .then((res) => setProfile(res));
   }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    setFile(newFile.current.value)
-    const newPath = newFile.current.value.replace("C:/fakepath/", "")
+    setFile(newFile.current.value);
+    const newPath = newFile.current.value.replace("C:/fakepath/", "");
     const update = {
       bio: bio.current.value,
       city: city.current.value,
@@ -35,7 +36,7 @@ export default function UpdatePage({ user }) {
     //     data.append('name',fileName)
     //     update.profilePicture = fileName
     //     try{
-    //         const res = fetch(`http://localhost:3001/upload/${newPath}`, {
+    //         const res = fetch(`/upload/${newPath}`, {
     //             method: "POST",
     //             headers: { "Content-Type": "application/json" },
     //             // body: JSON.stringify(fileName),
@@ -46,7 +47,7 @@ export default function UpdatePage({ user }) {
     //     }
     // }
     try {
-      const res = fetch(`http://localhost:3001/api/users/${profile._id}`, {
+      const res = fetch(`/api/users/${profile._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(update),
@@ -62,23 +63,25 @@ export default function UpdatePage({ user }) {
       <Form onSubmit={submitHandler}>
         <Form.Group className="mb-3" controlId="">
           <Form.Label>Bio</Form.Label>
-          <Form.Control type="text" ref={bio}  defaultValue={profile.bio} />
-          <Form.Text className="text-muted">
-            Tells us about yourself!
-          </Form.Text>
+          <Form.Control type="text" ref={bio} defaultValue={profile.bio} />
+          <Form.Text className="text-muted">Tells us about yourself!</Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="">
           <Form.Label>City</Form.Label>
-          <Form.Control type="text" ref={city}  defaultValue={profile.city} />
+          <Form.Control type="text" ref={city} defaultValue={profile.city} />
           <Form.Text className="text-muted">
             What city do you mainly see concerts in?
           </Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="">
           <Form.Label>State</Form.Label>
-          <Form.Control type="text" ref={state}  defaultValue={profile.stateCode} />
+          <Form.Control
+            type="text"
+            ref={state}
+            defaultValue={profile.stateCode}
+          />
           <Form.Text className="text-muted">
-          What state do you mainly see concerts in?
+            What state do you mainly see concerts in?
           </Form.Text>
         </Form.Group>
         {/* <Form.Group className="mb-3" controlId="">

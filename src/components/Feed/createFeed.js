@@ -17,13 +17,13 @@ export default function CreateFeed({ user, setUser }) {
     const [topic, setTopic] = useState('')
 
     useEffect(()=>{
-        fetch(`http://localhost:3001/api/posts/timeline/${user._id}`)
+        fetch(`/api/posts/timeline/${user._id}`)
         .then((res) => res.json())
         .then((res) => setPosts(res))
     },[])
 
     useEffect(()=>{
-        fetch(`http://localhost:3001/api/posts/concert/following/${user._id}/all`)
+        fetch(`/api/posts/concert/following/${user._id}/all`)
         .then((res) => res.json())
         .then((res) => setConcertFeed(res))
     },[])
@@ -53,7 +53,7 @@ export default function CreateFeed({ user, setUser }) {
       };
      
       try{
-          const res = await fetch("http://localhost:3001/api/posts/", {
+          const res = await fetch("/api/posts/", {
               method: "POST",
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(newPost)})

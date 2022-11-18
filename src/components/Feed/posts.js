@@ -24,7 +24,7 @@ export default function Post({post, currentUser}) {
   },[])
  
      useEffect(()=>{
-         fetch(`http://localhost:3001/api/users?userId=${post.userId}`)
+         fetch(`api/users?userId=${post.userId}`)
          .then((res) => res.json())
          .then((res) => setPostUser(res))
      }, [])
@@ -37,7 +37,7 @@ export default function Post({post, currentUser}) {
   };
  
   try{
-      const res = await fetch(`http://localhost:3001/api/posts/${post._id}/comment`, {
+      const res = await fetch(`api/posts/${post._id}/comment`, {
           method: "PUT",
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(comment)})
@@ -70,7 +70,7 @@ export default function Post({post, currentUser}) {
       userId :currentUser._id,
     };
 try{
-    const res = await fetch(`http://localhost:3001/api/posts/${post._id}/like`, {
+    const res = await fetch(`api/posts/${post._id}/like`, {
         method: "PUT",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newLike)})

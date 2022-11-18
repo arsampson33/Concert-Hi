@@ -15,7 +15,7 @@ export default function Concert({user}){
   const url = `https://app.ticketmaster.com/discovery/v2/events.json?keyword=${params}&apikey=6ySHlQzwLMmMdG7Oxr53PU74DFG98d18`  
 
     useEffect(()=>{
-        fetch(`http://localhost:3001/api/posts/concert/${params.concertId}/all`)
+        fetch(`/api/posts/concert/${params.concertId}/all`)
         .then((res) => res.json())
         .then((res) => setPosts(res))
     },[])
@@ -34,7 +34,7 @@ export default function Concert({user}){
       
         try {
           const res = await fetch(
-            `http://localhost:3001/api/users/concert/${params.concertId}/follow`,
+            `/api/users/concert/${params.concertId}/follow`,
             {
               method: "PUT",
               headers: { "Content-Type": "application/json" },
