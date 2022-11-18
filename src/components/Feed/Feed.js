@@ -40,8 +40,8 @@ export default function Feed({ user, setUser }) {
           <h1 className=" my-4 display-6">Friend Feed</h1>
           <Container className="d-flex flex-column align-items-center">
             {posts
-              .slice(0)
-              .reverse()
+              // .slice(0)
+              // .reverse()
               .map((p) => (
                 <Post key={p._id} post={p} currentUser={user} />
               ))}
@@ -51,8 +51,8 @@ export default function Feed({ user, setUser }) {
         <h1 className=" my-4 display-6">Concert Feed</h1>
           <Container className="d-flex flex-column align-items-center">
             {concertFeed
-              .slice(0)
-              .reverse()
+              // .slice(0)
+              // .reverse()
               .map((p) => (
                 <Post key={p._id} post={p} currentUser={user} />
               ))}
