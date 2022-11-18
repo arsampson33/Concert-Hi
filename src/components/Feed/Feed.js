@@ -12,13 +12,13 @@ export default function Feed({ user, setUser }) {
     const [postCheck, setPostCheck] = useState(false)
 
     useEffect(()=>{
-        fetch(`http://localhost:3001/api/posts/timeline/${user._id}`)
+        fetch(`/api/posts/timeline/${user._id}`)
         .then((res) => res.json())
         .then((res) => setPosts(res))
     },[])
 
     useEffect(()=>{
-        fetch(`http://localhost:3001/api/posts/concert/following/${user._id}/all`)
+        fetch(`api/posts/concert/following/${user._id}/all`)
         .then((res) => res.json())
         .then((res) => setConcertFeed(res))
     },[])

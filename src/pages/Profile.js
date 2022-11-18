@@ -27,7 +27,7 @@ export default function Profile({ user }) {
       // setFollowing(true)
       try {
         const res = await fetch(
-          `http://localhost:3001/api/users/${profile._id}/follow`,
+          `api/users/${profile._id}/follow`,
           {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
