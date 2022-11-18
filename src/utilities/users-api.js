@@ -1,7 +1,7 @@
 import { getToken } from './users-service';
 
 
-const BASE_URL = 'http://localhost:3001/api/users'
+const BASE_URL = '/api/users'
 
 export function signUp(userData){
     return sendRequest(BASE_URL, 'POST', userData)
